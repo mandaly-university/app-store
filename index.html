@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0F172A">
+  <title>App Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Application Store</h1>
+    <input type="text" id="search" placeholder="Search applications..." />
+    <div id="gallery" class="gallery"></div>
+  </div>
+  <script>
+    let apps = [];
+    const gallery = document.getElementById('gallery');
+    const search = document.getElementById('search');
+
+    async function loadApps() {
+      const res = await fetch('apps.json');
+      apps = await res.json();
+      renderGallery(apps);
+    }
+
+    function renderGallery(appList) {
+      gallery.innerHTML = '';
+      if (appList.length === 0) {
+        gallery.innerHTML = '<p>No applications found.</p>';
+        return;
+      }
+      appList.forEach(app => {
+        const card = document.createElement('div');
+        card.className = 'app-card';
+        card.innerHTML = `
+          <img src="${app.icon}" alt="${app.name}" class="app-icon" />
+          ${app.video ? `<video class='app-video' src='${app.video}' controls poster='${app.icon}' preload='none'></video>` : ''}
+          <h2>${app.name}</h2>
+          <div class="description-container">
+            <p class="description">${app.description}</p>
+            ${app.fullDescription ? `
+              <p class="full-description" style="display: none;">${app.fullDescription}</p>
+              <button class="read-more-btn">Read More</button>
+            ` : ''}
+          </div>
+          <div class="share-row">
+            <button class="copy-link-btn" data-link="${app.link}">Copy Link</button>
+            <a class="social-share whatsapp" title="Share on WhatsApp" target="_blank" href="https://wa.me/?text=${encodeURIComponent('Check out this app: ' + app.name + ' ' + window.location.origin + '/' + app.link)}"></a>
+            <a class="social-share facebook" title="Share on Facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin + '/' + app.link)}"></a>
+            <a class="social-share twitter" title="Share on Twitter" target="_blank" href="https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out this app: ' + app.name)}&url=${encodeURIComponent(window.location.origin + '/' + app.link)}"></a>
+            <a class="social-share telegram" title="Share on Telegram" target="_blank" href="https://t.me/share/url?url=${encodeURIComponent(window.location.origin + '/' + app.link)}&text=${encodeURIComponent('Check out this app: ' + app.name)}"></a>
+          </div>
+          <a href="${app.link}" download class="download-btn">Download</a>
+        `;
+        gallery.appendChild(card);
+
+        // Add click handler for read more button
+        const readMoreBtn = card.querySelector('.read-more-btn');
+        if (readMoreBtn) {
+          readMoreBtn.addEventListener('click', () => {
+            const description = card.querySelector('.description');
+            const fullDescription = card.querySelector('.full-description');
+            if (fullDescription.style.display === 'none') {
+              description.style.display = 'none';
+              fullDescription.style.display = 'block';
+              setTimeout(() => {
+                fullDescription.style.opacity = '1';
+              }, 10);
+              readMoreBtn.textContent = 'Show Less';
+            } else {
+              fullDescription.style.opacity = '0';
+              setTimeout(() => {
+                fullDescription.style.display = 'none';
+                description.style.display = 'block';
+                setTimeout(() => {
+                  description.style.opacity = '1';
+                }, 10);
+              }, 300);
+              readMoreBtn.textContent = 'Read More';
+            }
+          });
+        }
+
+        // Copy Link logic
+        const copyBtn = card.querySelector('.copy-link-btn');
+        copyBtn.addEventListener('click', () => {
+          navigator.clipboard.writeText(copyBtn.dataset.link);
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = 'Copy Link'; }, 1200);
+        });
+      });
+    }
+
+    search.addEventListener('input', () => {
+      const q = search.value.toLowerCase();
+      const filtered = apps.filter(app =>
+        app.name.toLowerCase().includes(q) ||
+        app.description.toLowerCase().includes(q) ||
+        (app.fullDescription && app.fullDescription.toLowerCase().includes(q))
+      );
+      renderGallery(filtered);
+    });
+
+    loadApps();
+  </script>
+</body>
+</html> 
