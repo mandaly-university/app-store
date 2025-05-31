@@ -14,12 +14,15 @@ async function loadAppData() {
 function createAppCard(app) {
     return `
         <div class="app-card">
-            <img src="${app.icon}" alt="${app.name}">
-            <h3>${app.name}</h3>
-            <p class="developer">${app.developer}</p>
-            <div class="rating">
-                <i class="fas fa-star"></i>
-                <span>${app.rating}</span>
+            <div class="app-card-content">
+                <img src="${app.icon}" alt="${app.name}">
+                <div class="app-info-block">
+                    <h3>${app.name}</h3>
+                    <div class="developer">${app.developer}</div>
+                    <div class="rating-row">
+                        <span class="rating"><i class="fas fa-star"></i> ${app.rating}</span>
+                    </div>
+                </div>
             </div>
             <div class="download-options">
                 <a href="${app.downloadUrl ? app.downloadUrl : '#'}" class="download-btn" download>
@@ -47,14 +50,15 @@ function createCategoryCard(category) {
 function createTopChartItem(app, index) {
     return `
         <div class="app-item">
-            <span class="rank">${index + 1}</span>
-            <img src="${app.icon}" alt="${app.name}">
-            <div class="app-info">
-                <h3>${app.name}</h3>
-                <p class="developer">${app.developer}</p>
-                <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <span>${app.rating}</span>
+            <div class="app-item-content">
+                <span class="rank">${index + 1}</span>
+                <img src="${app.icon}" alt="${app.name}">
+                <div class="app-info-block">
+                    <h3>${app.name}</h3>
+                    <div class="developer">${app.developer}</div>
+                    <div class="rating-row">
+                        <span class="rating"><i class="fas fa-star"></i> ${app.rating}</span>
+                    </div>
                 </div>
             </div>
             <div class="download-options">
