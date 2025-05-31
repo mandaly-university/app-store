@@ -12,14 +12,26 @@
 </head>
 <body>
   <div class="container">
-    <h1>Application Store</h1>
+    <h1>UniWorld Store</h1>
     <input type="text" id="search" placeholder="Search applications..." />
     <div id="gallery" class="gallery"></div>
   </div>
+
+  <!-- Modal for app details -->
+  <div id="appModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
   <script>
     let apps = [];
     const gallery = document.getElementById('gallery');
     const search = document.getElementById('search');
+    const modal = document.getElementById('appModal');
+    const modalContent = document.getElementById('modalContent');
+    const closeModal = document.querySelector('.close-modal');
 
     async function loadApps() {
       const res = await fetch('apps.json');
@@ -38,62 +50,72 @@
         card.className = 'app-card';
         card.innerHTML = `
           <img src="${app.icon}" alt="${app.name}" class="app-icon" />
-          ${app.video ? `<video class='app-video' src='${app.video}' controls poster='${app.icon}' preload='none'></video>` : ''}
+          <div class="app-info">
+            <h2>${app.name}</h2>
+            <p class="description">${app.description}</p>
+          </div>
+          <button class="view-details-btn">View Details</button>
+        `;
+        gallery.appendChild(card);
+
+        // Add click handler for the card
+        const viewDetailsBtn = card.querySelector('.view-details-btn');
+        viewDetailsBtn.addEventListener('click', () => {
+          showAppDetails(app);
+        });
+      });
+    }
+
+    function showAppDetails(app) {
+      modalContent.innerHTML = `
+        <div class="app-details">
+          <img src="${app.icon}" alt="${app.name}" class="app-icon-large" />
           <h2>${app.name}</h2>
+          ${app.video ? `<video class='app-video' src='${app.video}' controls poster='${app.icon}' preload='none'></video>` : ''}
           <div class="description-container">
             <p class="description">${app.description}</p>
             ${app.fullDescription ? `
-              <p class="full-description" style="display: none;">${app.fullDescription}</p>
-              <button class="read-more-btn">Read More</button>
+              <p class="full-description">${app.fullDescription}</p>
             ` : ''}
           </div>
           <div class="share-row">
-            <button class="copy-link-btn" data-link="${app.link}">Copy Link</button>
             <a class="social-share whatsapp" title="Share on WhatsApp" target="_blank" href="https://wa.me/?text=${encodeURIComponent('Check out this app: ' + app.name + ' ' + window.location.origin + '/' + app.link)}"></a>
             <a class="social-share facebook" title="Share on Facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin + '/' + app.link)}"></a>
             <a class="social-share twitter" title="Share on Twitter" target="_blank" href="https://twitter.com/intent/tweet?text=${encodeURIComponent('Check out this app: ' + app.name)}&url=${encodeURIComponent(window.location.origin + '/' + app.link)}"></a>
             <a class="social-share telegram" title="Share on Telegram" target="_blank" href="https://t.me/share/url?url=${encodeURIComponent(window.location.origin + '/' + app.link)}&text=${encodeURIComponent('Check out this app: ' + app.name)}"></a>
           </div>
-          <a href="${app.link}" download class="download-btn">Download</a>
-        `;
-        gallery.appendChild(card);
-
-        // Add click handler for read more button
-        const readMoreBtn = card.querySelector('.read-more-btn');
-        if (readMoreBtn) {
-          readMoreBtn.addEventListener('click', () => {
-            const description = card.querySelector('.description');
-            const fullDescription = card.querySelector('.full-description');
-            if (fullDescription.style.display === 'none') {
-              description.style.display = 'none';
-              fullDescription.style.display = 'block';
-              setTimeout(() => {
-                fullDescription.style.opacity = '1';
-              }, 10);
-              readMoreBtn.textContent = 'Show Less';
-            } else {
-              fullDescription.style.opacity = '0';
-              setTimeout(() => {
-                fullDescription.style.display = 'none';
-                description.style.display = 'block';
-                setTimeout(() => {
-                  description.style.opacity = '1';
-                }, 10);
-              }, 300);
-              readMoreBtn.textContent = 'Read More';
-            }
-          });
-        }
-
-        // Copy Link logic
-        const copyBtn = card.querySelector('.copy-link-btn');
-        copyBtn.addEventListener('click', () => {
-          navigator.clipboard.writeText(copyBtn.dataset.link);
-          copyBtn.textContent = 'Copied!';
-          setTimeout(() => { copyBtn.textContent = 'Copy Link'; }, 1200);
-        });
-      });
+          <a href="${app.link}" download class="download-btn">
+            <svg class="download-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 16L12 8M12 16L8 12M12 16L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 15V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Download App
+          </a>
+        </div>
+      `;
+      modal.style.display = 'flex';
+      // Trigger reflow
+      modal.offsetHeight;
+      modal.classList.add('show');
     }
+
+    // Close modal when clicking the X
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 300);
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 300);
+      }
+    });
 
     search.addEventListener('input', () => {
       const q = search.value.toLowerCase();
