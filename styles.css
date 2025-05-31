@@ -49,13 +49,15 @@
     box-sizing: border-box;
 }
 
-body {
+body, html {
+    width: 100vw;
+    min-width: 0;
+    overflow-x: hidden;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
     position: relative;
     min-height: 100vh;
-    overflow-x: hidden;
     transition: color var(--transition-speed) ease;
 }
 
@@ -260,9 +262,11 @@ body::before {
 
 /* Main Content */
 main {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 2vw;
+    box-sizing: border-box;
 }
 
 section {
@@ -540,83 +544,64 @@ footer {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        padding: 1rem;
+@media (max-width: 800px) {
+    .app-grid {
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
+        padding: 0;
     }
-
-    .search-bar {
-        width: 100%;
-        margin: 1rem 0;
-    }
-
-    .nav-links {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0;
-    }
-
-    .nav-links a {
+    .app-card {
+        border-radius: 0;
+        box-shadow: none;
+        border-bottom: 1px solid var(--card-border);
         margin: 0;
-        font-size: 0.9rem;
-    }
-
-    .theme-toggle {
-        margin-left: auto;
-    }
-
-    .app-grid,
-    .category-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-
-    .download-options {
-        flex-direction: column;
+        padding: 1rem 0.5rem;
+        background: transparent;
         width: 100%;
+        min-width: 0;
+        max-width: 100%;
     }
-
-    .download-btn, .preview-btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .app-item .download-options {
-        flex-direction: row;
+    .app-card:last-child {
+        border-bottom: none;
     }
 }
 
 @media (max-width: 600px) {
-    .download-options {
-        flex-direction: column;
+    .download-btn, .preview-btn,
+    .app-item .download-btn, .app-item .preview-btn {
+        font-size: 1rem;
+        padding: 0.32rem 0.7rem;
+        border-radius: 10px;
+        max-width: 90vw;
+        min-width: 80px;
+        margin-left: auto;
+        margin-right: auto;
+        height: auto;
+        min-height: 0;
+    }
+    .app-card .download-options {
         align-items: center;
-        width: 100%;
+    }
+    .app-card h3, .app-item h3 {
+        font-size: 1.05rem;
+    }
+    .developer {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 400px) {
+    main {
+        padding: 0 1vw;
     }
     .download-btn, .preview-btn,
     .app-item .download-btn, .app-item .preview-btn {
-        width: auto;
-        max-width: 90vw;
-        min-width: 100px;
-        margin-bottom: 0.5rem;
-        justify-content: center;
-        border-radius: 18px;
-        font-size: 1rem;
-        padding: 0.7rem 1.5rem;
-        box-sizing: border-box;
-        display: inline-flex;
+        font-size: 0.92rem;
+        padding: 0.22rem 0.4rem;
     }
-    .app-item .download-options {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        margin-left: 0;
-        justify-content: flex-start;
-    }
-    .app-item .download-btn:last-child,
-    .app-item .preview-btn:last-child {
-        margin-bottom: 0;
+    .app-card h3, .app-item h3 {
+        font-size: 0.98rem;
     }
 }
 
