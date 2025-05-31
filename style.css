@@ -452,4 +452,94 @@ h1 {
 
 .social-share:hover:before {
   filter: brightness(0) invert(1);
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 10px 4px;
+  }
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+  #search {
+    padding: 12px 10px;
+    font-size: 1rem;
+    max-width: 98vw;
+  }
+  .gallery {
+    gap: 10px;
+    padding: 10px 0;
+  }
+  .app-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+    gap: 10px;
+  }
+  .app-icon {
+    width: 48px;
+    height: 48px;
+    padding: 6px;
+  }
+  .app-info h2 {
+    font-size: 1.05rem;
+  }
+  .view-details-btn {
+    min-width: 100px;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+  }
+  .modal-content {
+    padding: 10px;
+    margin: 0;
+    max-width: 98vw;
+    border-radius: 12px;
+  }
+  .app-icon-large {
+    width: 70px;
+    height: 70px;
+    padding: 8px;
+    border-radius: 12px;
+  }
+  .app-details h2 {
+    font-size: 1.2rem;
+  }
+  .app-details .description-container {
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .download-btn {
+    min-width: 120px;
+    max-width: 98vw;
+    padding: 10px 8px;
+    font-size: 0.98rem;
+  }
+  .share-row {
+    gap: 6px;
+  }
+  .social-share {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+  .social-share:before {
+    width: 16px;
+    height: 16px;
+  }
+  footer {
+    margin: 20px 0 8px 0 !important;
+  }
+}
+
+@media (max-width: 400px) {
+  h1 {
+    font-size: 1.1rem;
+  }
+  .modal-content {
+    padding: 4px;
+  }
+  .app-details h2 {
+    font-size: 1rem;
+  }
 } 
