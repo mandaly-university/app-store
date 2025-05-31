@@ -592,10 +592,26 @@ footer {
     .download-options {
         flex-direction: column;
         align-items: stretch;
+        width: 100%;
     }
-    .download-btn, .preview-btn {
+    .download-btn, .preview-btn,
+    .app-item .download-btn, .app-item .preview-btn {
         width: 100%;
         max-width: 100%;
+        min-width: 0;
+        margin-bottom: 0.5rem;
+        justify-content: center;
+    }
+    .app-item .download-options {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        margin-left: 0;
+        justify-content: flex-start;
+    }
+    .app-item .download-btn:last-child,
+    .app-item .preview-btn:last-child {
+        margin-bottom: 0;
     }
 }
 
