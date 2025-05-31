@@ -1,0 +1,656 @@
+/* Theme Variables */
+:root {
+    /* Light Theme */
+    --bg-gradient-1: #ffffff;
+    --bg-gradient-2: #f0f7f4;
+    --bg-gradient-3: #e8f5f0;
+    --bg-pattern-color: rgba(40, 167, 69, 0.03);
+    --bg-pattern-size: 40px;
+    --text-color: #1a1a1a;
+    --text-secondary: #2c3e50;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --card-border: rgba(40, 167, 69, 0.08);
+    --card-shadow: rgba(40, 167, 69, 0.06);
+    --nav-bg: rgba(255, 255, 255, 0.98);
+    --search-bg: #f0f7f4;
+    --particle-color: rgba(40, 167, 69, 0.08);
+    --primary-color: #28a745;
+    --primary-hover: #218838;
+    --accent-color: #20c997;
+    --success-color: #28a745;
+    --border-radius: 12px;
+    --transition-speed: 0.2s;
+}
+
+[data-theme="dark"] {
+    /* Dark Theme */
+    --bg-gradient-1: #1a1a1a;
+    --bg-gradient-2: #1e2a24;
+    --bg-gradient-3: #233029;
+    --bg-pattern-color: rgba(40, 167, 69, 0.02);
+    --text-color: #f8f9fa;
+    --text-secondary: #e9ecef;
+    --card-bg: rgba(30, 42, 36, 0.95);
+    --card-border: rgba(40, 167, 69, 0.08);
+    --card-shadow: rgba(0, 0, 0, 0.2);
+    --nav-bg: rgba(30, 42, 36, 0.98);
+    --search-bg: #233029;
+    --particle-color: rgba(40, 167, 69, 0.05);
+    --primary-color: #28a745;
+    --primary-hover: #218838;
+    --accent-color: #20c997;
+    --success-color: #28a745;
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100vw;
+    min-width: 0;
+    overflow-x: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    position: relative;
+    min-height: 100vh;
+    transition: color var(--transition-speed) ease;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(45deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 50%, var(--bg-gradient-3) 100%),
+        repeating-linear-gradient(45deg, var(--bg-pattern-color) 0px, var(--bg-pattern-color) 1px, transparent 1px, transparent var(--bg-pattern-size)),
+        repeating-linear-gradient(-45deg, var(--bg-pattern-color) 0px, var(--bg-pattern-color) 1px, transparent 1px, transparent var(--bg-pattern-size));
+    background-size: 100% 100%, var(--bg-pattern-size) var(--bg-pattern-size), var(--bg-pattern-size) var(--bg-pattern-size);
+    z-index: -1;
+    transition: background 0.3s ease;
+    animation: gradientShift 15s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 0%, 0 0, 0 0;
+    }
+    25% {
+        background-position: 50% 50%, 10px 10px, -10px -10px;
+    }
+    50% {
+        background-position: 100% 100%, 20px 20px, -20px -20px;
+    }
+    75% {
+        background-position: 50% 50%, 10px 10px, -10px -10px;
+    }
+    100% {
+        background-position: 0% 0%, 0 0, 0 0;
+    }
+}
+
+/* Floating particles */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: var(--particle-color);
+    border-radius: 50%;
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    animation: float 20s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.particle:nth-child(1) {
+    width: 180px;
+    height: 180px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+    width: 220px;
+    height: 220px;
+    top: 60%;
+    left: 80%;
+    animation-delay: -5s;
+}
+
+.particle:nth-child(3) {
+    width: 140px;
+    height: 140px;
+    top: 80%;
+    left: 30%;
+    animation-delay: -10s;
+}
+
+.particle:nth-child(4) {
+    width: 200px;
+    height: 200px;
+    top: 30%;
+    left: 60%;
+    animation-delay: -15s;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.5;
+    }
+    25% {
+        transform: translate(30px, 30px) rotate(90deg) scale(0.9);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translate(60px, 60px) rotate(180deg) scale(1);
+        opacity: 0.8;
+    }
+    75% {
+        transform: translate(30px, 30px) rotate(270deg) scale(0.9);
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* Header and Navigation */
+.navbar {
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px var(--card-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--card-border);
+    transition: all var(--transition-speed) ease;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--search-bg);
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    width: 40%;
+    border: 1px solid var(--card-border);
+    transition: all var(--transition-speed) ease;
+}
+
+.search-bar:focus-within {
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+.search-bar input {
+    border: none;
+    background: none;
+    outline: none;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin-left: 2rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color var(--transition-speed) ease;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width var(--transition-speed) ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* Main Content */
+main {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 2vw;
+    box-sizing: border-box;
+}
+
+section {
+    margin-bottom: 3rem;
+}
+
+section h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+/* Featured Apps */
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.app-card, .category-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: center;
+    transition: all var(--transition-speed) ease;
+    box-shadow: 0 4px 6px var(--card-shadow);
+    border: 1px solid var(--card-border);
+}
+
+.app-card:hover, .category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px var(--card-shadow);
+    background: var(--card-bg);
+}
+
+.app-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 8px var(--card-shadow);
+}
+
+.app-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.developer {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+}
+
+.rating {
+    color: #ff9500;
+    margin-bottom: 1rem;
+}
+
+/* Download Options */
+.download-options {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.download-btn, .preview-btn {
+    min-width: 120px;
+    flex: 1 1 120px;
+    max-width: 180px;
+    justify-content: center;
+    text-decoration: none !important;
+    box-shadow: none;
+}
+
+/* Download Button */
+.download-btn {
+    background-color: #22c55e;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(34,197,94,0.08);
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.download-btn i {
+    margin-right: 0.5rem;
+    transition: color 0.2s;
+}
+.download-btn:hover {
+    background-color: #16a34a;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(34,197,94,0.15);
+}
+.download-btn:hover i::before {
+    content: '\f00c'; /* FontAwesome checkmark */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: #fff;
+}
+
+/* Preview Button */
+.preview-btn {
+    background: transparent;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+    font-weight: 600;
+    border-radius: 999px;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+    box-shadow: none;
+}
+.preview-btn i {
+    margin-right: 0.5rem;
+    color: #2563eb;
+    transition: color 0.2s;
+}
+.preview-btn:hover {
+    background: #2563eb;
+    color: #fff;
+    border-color: #2563eb;
+}
+.preview-btn:hover i {
+    color: #fff;
+}
+
+/* Update app-item download button */
+.app-item .download-options {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: auto;
+}
+
+.app-item .download-btn,
+.app-item .preview-btn {
+    min-width: 100px;
+    max-width: 160px;
+    width: auto;
+    flex: 0 0 auto;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    justify-content: center;
+}
+
+/* Categories */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.category-card i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    transition: transform var(--transition-speed) ease;
+}
+
+.category-card:hover i {
+    transform: scale(1.1);
+}
+
+/* Top Charts */
+.app-list {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    box-shadow: 0 4px 6px var(--card-shadow);
+    border: 1px solid var(--card-border);
+}
+
+.app-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--card-border);
+    transition: background-color var(--transition-speed) ease;
+}
+
+.app-item:hover {
+    background-color: var(--search-bg);
+}
+
+.rank {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-right: 1rem;
+    width: 30px;
+    text-align: center;
+}
+
+.app-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    margin-right: 1rem;
+}
+
+.app-info {
+    flex-grow: 1;
+}
+
+/* Footer */
+footer {
+    background-color: #1d1d1f;
+    color: #fff;
+    padding: 3rem 0 1rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: #007AFF;
+}
+
+.social-links a {
+    margin-right: 1rem;
+    font-size: 1.5rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #333;
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    .app-grid {
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
+        padding: 0;
+    }
+    .app-card {
+        border-radius: 0;
+        box-shadow: none;
+        border-bottom: 1px solid var(--card-border);
+        margin: 0;
+        padding: 1rem 0.5rem;
+        background: transparent;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+    .app-card:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .download-btn, .preview-btn,
+    .app-item .download-btn, .app-item .preview-btn {
+        font-size: 1rem;
+        padding: 0.32rem 0.7rem;
+        border-radius: 10px;
+        max-width: 90vw;
+        min-width: 80px;
+        margin-left: auto;
+        margin-right: auto;
+        height: auto;
+        min-height: 0;
+    }
+    .app-card .download-options {
+        align-items: center;
+    }
+    .app-card h3, .app-item h3 {
+        font-size: 1.05rem;
+    }
+    .developer {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 400px) {
+    main {
+        padding: 0 1vw;
+    }
+    .download-btn, .preview-btn,
+    .app-item .download-btn, .app-item .preview-btn {
+        font-size: 0.92rem;
+        padding: 0.22rem 0.4rem;
+    }
+    .app-card h3, .app-item h3 {
+        font-size: 0.98rem;
+    }
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all var(--transition-speed) ease;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    position: relative;
+}
+
+.theme-toggle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: var(--search-bg);
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease;
+}
+
+.theme-toggle:hover::before {
+    opacity: 1;
+}
+
+.theme-toggle i {
+    position: relative;
+    z-index: 1;
+}
+
+.theme-toggle:hover {
+    color: var(--primary-color);
+    transform: rotate(30deg);
+}
+
+.download-btn:hover, .preview-btn:hover {
+    text-decoration: none !important;
+} 
