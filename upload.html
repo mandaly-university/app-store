@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload App - Tobi App Store</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Tobi App Store</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="upload.html" class="active">Upload App</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="upload-page">
+        <h1>Upload Your App</h1>
+        <form id="uploadForm" class="upload-form">
+            <div class="form-group">
+                <label for="appName">App Name</label>
+                <input type="text" id="appName" name="appName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="developer">Developer Name</label>
+                <input type="text" id="developer" name="developer" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="games">Games</option>
+                    <option value="productivity">Productivity</option>
+                    <option value="social">Social</option>
+                    <option value="utilities">Utilities</option>
+                    <option value="education">Education</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="version">Version</label>
+                <input type="text" id="version" name="version" placeholder="e.g., 1.0.0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="appIcon">App Icon</label>
+                <input type="file" id="appIcon" name="appIcon" accept="image/*" required>
+            </div>
+
+            <div class="form-group">
+                <label for="screenshots">Screenshots</label>
+                <input type="file" id="screenshots" name="screenshots" accept="image/*" multiple required>
+                <small>Upload up to 5 screenshots</small>
+            </div>
+
+            <div class="form-group">
+                <label for="appFile">App File</label>
+                <input type="file" id="appFile" name="appFile" accept=".apk,.zip" required>
+            </div>
+
+            <button type="submit" class="btn submit-btn">Upload App</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tobi App Store. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html> 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tobi App Store</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Tobi App Store</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="upload.html">Upload App</a>
+            </div>
+        </nav>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search apps...">
+            <button id="searchButton"><i class="fas fa-search"></i></button>
+        </div>
+    </header>
+
+    <main>
+        <section class="featured-apps">
+            <h2>Featured Apps</h2>
+            <div class="featured-grid">
+                <div class="app-card featured">
+                    <img src="https://via.placeholder.com/150" alt="App Icon">
+                    <h3>App Name 1</h3>
+                    <p>Amazing featured app description goes here.</p>
+                    <a href="app.html?id=1" class="btn">View Details</a>
+                </div>
+                <div class="app-card featured">
+                    <img src="https://via.placeholder.com/150" alt="App Icon">
+                    <h3>App Name 2</h3>
+                    <p>Another great featured app description.</p>
+                    <a href="app.html?id=2" class="btn">View Details</a>
+                </div>
+                <div class="app-card featured">
+                    <img src="https://via.placeholder.com/150" alt="App Icon">
+                    <h3>App Name 3</h3>
+                    <p>Third featured app with description.</p>
+                    <a href="app.html?id=3" class="btn">View Details</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="all-apps">
+            <h2>All Apps</h2>
+            <div class="apps-grid" id="appsGrid">
+                <!-- Apps will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tobi App Store. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html> 
