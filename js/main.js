@@ -1,54 +1,5 @@
-// Sample app data (in a real app, this would come from a backend)
-let apps = JSON.parse(localStorage.getItem('tobiAppStore')) || [
-    {
-        id: 1,
-        name: "Photo Editor Pro",
-        description: "Professional photo editing app with advanced features",
-        category: "Photo & Video",
-        rating: 4.8,
-        downloads: "1M+",
-        size: "45MB",
-        version: "2.1.0",
-        icon: "https://via.placeholder.com/150",
-        screenshots: [
-            "https://via.placeholder.com/800x600",
-            "https://via.placeholder.com/800x600",
-            "https://via.placeholder.com/800x600"
-        ]
-    },
-    {
-        id: 2,
-        name: "Fitness Tracker",
-        description: "Track your workouts and health metrics",
-        category: "Health & Fitness",
-        rating: 4.5,
-        downloads: "500K+",
-        size: "30MB",
-        version: "1.5.0",
-        icon: "https://via.placeholder.com/150",
-        screenshots: [
-            "https://via.placeholder.com/800x600",
-            "https://via.placeholder.com/800x600"
-        ]
-    },
-    {
-        id: 3,
-        name: "App Name 3",
-        developer: "Developer 3",
-        description: "Third featured app with description.",
-        category: "Social",
-        version: "1.5.0",
-        size: "75MB",
-        rating: 4.2,
-        downloads: "250K+",
-        icon: "https://via.placeholder.com/150",
-        screenshots: [
-            "https://via.placeholder.com/300x500",
-            "https://via.placeholder.com/300x500",
-            "https://via.placeholder.com/300x500"
-        ]
-    }
-];
+// Initialize empty apps array
+let apps = JSON.parse(localStorage.getItem('tobiAppStore')) || [];
 
 // Save apps to local storage
 function saveApps() {
